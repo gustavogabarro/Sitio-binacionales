@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos Binacionales 2026 | Inicio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004a99;
+            --accent: #e63946;
+            --bg: #f8f9fa;
+            --white: #ffffff;
+            --dark: #111111;
+            --max-width: 1200px;
+            --gold: #d4af37;
+            --silver: #aaa9ad;
+            --bronze: #cd7f32;
+        }
+
+        html { overflow-y: scroll; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(--bg); color: #333; line-height: 1.5; }
+
+        /* HEADER */
+        header { 
+            background: var(--white); 
+            padding: 15px 0; 
+            border-bottom: 1px solid #ddd; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+        .header-container { 
+            max-width: var(--max-width); 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-sizing: border-box;
+        }
+        .logo { font-size: 18px; text-decoration: none; color: inherit; font-weight: 700; }
+        .nav-links a { text-decoration: none; color: #333; margin-left: 25px; font-weight: 500; font-size: 13px; }
+        .btn-nav-blue { background: var(--primary); color: white !important; padding: 10px 20px; border-radius: 5px; font-weight: 700 !important; border: none; text-decoration: none; }
+
+        /* HERO STREAMING */
+        .streaming-hero { background: var(--dark); padding: 50px 0; color: white; }
+        .streaming-layout { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; box-sizing: border-box; }
+        .video-box { background: #000; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; border: 1px solid #333; }
+        .live-tag { background: var(--accent); padding: 4px 10px; border-radius: 4px; font-weight: 700; font-size: 11px; margin-bottom: 15px; display: inline-block; }
+
+        /* CONTENIDO MAESTRO */
+        .main-content { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; box-sizing: border-box; }
+
+        /* NOTICIAS */
+        .news-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 40px; }
+        .news-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
+        .news-left { display: flex; gap: 20px; align-items: flex-start; }
+        .news-left img { width: 280px; height: 180px; object-fit: cover; border-radius: 8px; }
+        .news-right { border-left: 1px solid #eee; padding-left: 40px; display: flex; flex-direction: column; gap: 20px; }
+        .news-item h4 { margin: 0 0 10px 0; color: var(--primary); font-size: 16px; }
+        .news-item p { margin: 0; font-size: 13px; color: #666; }
+
+        /* GRILLA INFERIOR */
+        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; }
+        .card h3 { border-bottom: 2px solid var(--primary); padding-bottom: 12px; margin-top: 0; font-size: 18px; }
+
+        /* MEDALLERO FILTROS */
+        .filter-btn { background: #eee; border: 1px solid #ddd; border-radius: 4px; font-weight: 700; transition: 0.3s; padding: 6px; font-size: 11px; cursor: pointer; font-family: inherit; }
+        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #eee; font-size: 13px; }
+        .m-gold { color: var(--gold); font-weight: 700; }
+        .m-silver { color: var(--silver); font-weight: 700; }
+        .m-bronze { color: var(--bronze); font-weight: 700; }
+
+        /* FOOTER */
+        .site-footer { background: var(--dark); color: white; padding: 60px 0 40px; border-top: 5px solid var(--primary); margin-top: 60px; }
+        .footer-container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr 1fr 1.5fr; gap: 40px; box-sizing: border-box; }
+        .footer-col h4 { border-left: 3px solid var(--primary); padding-left: 12px; margin-bottom: 20px; font-size: 13px; text-transform: uppercase; }
+        .footer-col p { color: #999; font-size: 14px; margin-bottom: 10px; }
+
+        @media (max-width: 1100px) {
+            .streaming-layout, .news-grid, .bottom-grid, .footer-container { grid-template-columns: 1fr; }
+            .news-right { border-left: none; padding-left: 0; border-top: 1px solid #eee; padding-top: 20px; }
+            .news-left { flex-direction: column; }
+            .news-left img { width: 100%; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a href="index.html" class="logo">BINACIONALES 2026</a>
+        <nav class="nav-links">
+            <a href="index.html" style="color: var(--primary); font-weight: 700;">INICIO</a>
+            <a href="resultados.html">RESULTADOS</a>
+            <a href="#">NOTICIAS</a>
+            <!-- CORRECCIÓN: todos los links de acreditaciones van a login.html -->
+            <a href="login.html" class="btn-nav-blue">ACREDITACIONES</a>
+        </nav>
+    </div>
+</header>
+
+<section class="streaming-hero">
+    <div class="streaming-layout">
+        <div class="video-box">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/mai8kYTxXQQ" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div>
+            <div class="live-tag">● EN VIVO</div>
+            <h2 style="margin: 10px 0;">Básquetbol Masculino</h2>
+            <p style="color: var(--primary); font-weight: 700; font-size: 18px;">Mendoza vs. Valparaíso</p>
+            <hr style="border:0; border-top:1px solid #333; margin:20px 0;">
+            <p style="font-size: 13px; color: #888;">OTRAS TRANSMISIONES:</p>
+            <p style="font-size: 13px;">🏊 Natación: Finales</p>
+            <p style="font-size: 13px;">🚴 Ciclismo: Velódromo</p>
+        </div>
+    </div>
+</section>
+
+<div class="main-content">
+    <div class="news-box">
+        <div class="news-grid">
+            <div class="news-left">
+                <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=400&q=80" alt="Noticia">
+                <div class="news-item">
+                    <h4>Mendoza lidera el medallero</h4>
+                    <p>En una jornada histórica en el Estadio Malvinas, la delegación local logró imponerse en las primeras pruebas de atletismo.</p>
+                </div>
+            </div>
+            <div class="news-right">
+                <div class="news-item">
+                    <h4>Voleibol: Triunfo Chileno</h4>
+                    <p>Metropolitana venció a San Juan en un ajustado 3-2 en el Aconcagua Arena.</p>
+                </div>
+                <div class="news-item" style="border-top:1px solid #f2f2f2; padding-top:15px;">
+                    <h4>Ciclismo: Nuevos accesos</h4>
+                    <p>Habilitan molinetes extras en el Velódromo para las finales de mañana.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-grid">
+        <div class="card">
+            <h3>Últimos Resultados</h3>
+            <p><small>Fútbol Femenino</small><br><strong>Maule 2 - 1 San Juan</strong></p>
+            <p><small>Balonmano</small><br><strong>O'Higgins 24 - 24 Córdoba</strong></p>
+            <p><small>Tenis</small><br><strong>Mendoza 2 - 0 Metropolitana</strong></p>
+        </div>
+
+        <div class="card">
+            <h3>Medallero General</h3>
+            
+            <div style="margin-bottom: 20px;">
+                <select id="filter-sport" onchange="filterMedals()" style="width: 100%; padding: 8px; border-radius: 5px; margin-bottom: 10px; font-family: inherit;">
+                    <option value="general">Medallero General (Todos los deportes)</option>
+                    <option value="atletismo">Atletismo</option>
+                    <option value="basquetbol">Básquetbol</option>
+                    <option value="balonmano">Balonmano</option>
+                    <option value="ciclismo">Ciclismo</option>
+                    <option value="futbol">Fútbol</option>
+                    <option value="natacion">Natación</option>
+                    <option value="taekwondo">Taekwondo</option>
+                    <option value="tenis">Tenis</option>
+                    <option value="tenis_mesa">Tenis de Mesa</option>
+                    <option value="voleibol">Voleibol</option>
+                </select>
+
+                <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+                    <button class="filter-btn active" onclick="setCountryFilter('all', this)" style="flex:1;">TODAS</button>
+                    <button class="filter-btn" onclick="setCountryFilter('arg', this)" style="flex:1;">🇦🇷 ARG</button>
+                    <button class="filter-btn" onclick="setCountryFilter('chi', this)" style="flex:1;">🇨🇱 CHI</button>
+                </div>
+
+                <input type="text" id="search-province" placeholder="Buscar provincia o región..." onkeyup="filterMedals()" 
+                       style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 12px; font-family: inherit;">
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Delegación</th>
+                        <th class="m-gold">O</th>
+                        <th class="m-silver">P</th>
+                        <th class="m-bronze">B</th>
+                    </tr>
+                </thead>
+                <tbody id="medal-body">
+                    <tr data-country="arg"><td>Mendoza (ARG)</td><td class="m-gold">12</td><td class="m-silver">8</td><td class="m-bronze">5</td></tr>
+                    <tr data-country="chi"><td>Metropolitana (CHI)</td><td class="m-gold">11</td><td class="m-silver">9</td><td class="m-bronze">8</td></tr>
+                    <tr data-country="chi"><td>Valparaíso (CHI)</td><td class="m-gold">10</td><td class="m-silver">12</td><td class="m-bronze">7</td></tr>
+                    <tr data-country="arg"><td>San Juan (ARG)</td><td class="m-gold">9</td><td class="m-silver">10</td><td class="m-bronze">4</td></tr>
+                    <tr data-country="arg"><td>San Luis (ARG)</td><td class="m-gold">8</td><td class="m-silver">5</td><td class="m-bronze">9</td></tr>
+                    <tr data-country="arg"><td>Córdoba (ARG)</td><td class="m-gold">7</td><td class="m-silver">11</td><td class="m-bronze">6</td></tr>
+                    <tr data-country="chi"><td>Maule (CHI)</td><td class="m-gold">6</td><td class="m-silver">4</td><td class="m-bronze">10</td></tr>
+                    <tr data-country="chi"><td>O'Higgins (CHI)</td><td class="m-gold">4</td><td class="m-silver">6</td><td class="m-bronze">5</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h4 style="border:none; padding-left:0; color:white;">BINACIONALES 2026</h4>
+            <p>Uniendo naciones a través del deporte. 🇦🇷 🇨🇱</p>
+        </div>
+        <div class="footer-col">
+            <h4>Sedes</h4>
+            <p>🏟️ Estadio Malvinas</p>
+            <p>🏟️ Aconcagua Arena</p>
+        </div>
+        <div class="footer-col">
+            <h4>Contacto</h4>
+            <p>📍 Mendoza, Argentina</p>
+            <p>📧 soporte@mendoza.gov.ar</p>
+        </div>
+        <div class="footer-col">
+            <div style="background:#333; height:100px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#666; font-size:11px;">MAPA DE SEDES</div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    let currentCountry = 'all';
+
+    function setCountryFilter(country, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCountry = country;
+        filterMedals();
+    }
+
+    function filterMedals() {
+        const searchText = document.getElementById('search-province').value.toLowerCase();
+        const rows = document.querySelectorAll('#medal-body tr');
+
+        rows.forEach(row => {
+            const provinceName = row.innerText.toLowerCase();
+            const country = row.getAttribute('data-country');
+            const matchesSearch = provinceName.includes(searchText);
+            const matchesCountry = (currentCountry === 'all' || country === currentCountry);
+            row.style.display = (matchesSearch && matchesCountry) ? "" : "none";
+        });
+    }
+</script>
+
+</body>
+</html>

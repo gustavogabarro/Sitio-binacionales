@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel General ADMIN | Binacionales 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004a99;
+            --accent: #e63946;
+            --success: #28a745;
+            --warning: #ffc107;
+            --purple: #6f42c1;
+            --bg: #f0f2f5;
+            --white: #ffffff;
+            --max-width: 1250px;
+        }
+
+        html { overflow-y: scroll; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(--bg); color: #333; line-height: 1.5; }
+
+        @media print {
+            body * { visibility: hidden; }
+            #printArea, #printArea * { visibility: visible; }
+            #printArea { position: absolute; left: 0; top: 0; width: 100%; }
+            .no-print { display: none !important; }
+        }
+
+        header { background: var(--white); padding: 15px 0; border-bottom: 2px solid var(--accent); position: sticky; top: 0; z-index: 1000; }
+        .header-container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
+        .btn-nav-blue { background: var(--primary); color: white !important; padding: 10px 20px; border-radius: 5px; font-weight: 700; text-decoration: none; font-size: 13px; border: none; cursor: pointer; font-family: inherit; }
+
+        .container { max-width: var(--max-width); margin: 30px auto; padding: 0 20px; box-sizing: border-box; }
+
+        .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; border-bottom: 4px solid #ddd; }
+        .stat-card h4 { margin: 0; font-size: 11px; color: #888; text-transform: uppercase; }
+        .stat-card span { font-size: 28px; font-weight: 700; color: var(--primary); display: block; margin-top: 5px; }
+
+        .search-bar { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 30px; font-family: inherit; font-size: 16px; box-sizing: border-box; }
+
+        .section-title { border-bottom: 2px solid #ddd; padding-bottom: 10px; margin: 40px 0 20px; font-weight: 700; color: #555; }
+        .control-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .region-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .progress-bar { background: #eee; height: 8px; border-radius: 4px; overflow: hidden; margin: 10px 0; }
+        .progress-fill { height: 100%; background: var(--primary); transition: 0.5s; }
+
+        .table-container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { text-align: left; padding: 12px; background: #f8f9fa; border-bottom: 2px solid #eee; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+        
+        .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; }
+        .bg-ok { background: #d4edda; color: #155724; }
+
+        #printArea { display: none; }
+        @media print { #printArea { display: block; } }
+        .credencial-card {
+            width: 86mm; height: 120mm; background: white; border: 1px solid #000;
+            margin: 0 auto; display: flex; flex-direction: column; text-align: center;
+        }
+        .cred-header { background: var(--primary); color: white; padding: 15px; font-weight: 700; }
+        .cred-photo { width: 110px; height: 110px; border: 3px solid var(--primary); border-radius: 50%; margin: 15px auto; overflow: hidden; background: #eee; }
+        .cred-body h2 { margin: 10px 0 5px; font-size: 20px; text-transform: uppercase; }
+        .cred-footer { margin-top: auto; padding: 15px; background: #f4f4f4; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+
+<header class="no-print">
+    <div class="header-container">
+        <a href="index.html" style="text-decoration: none; color: inherit; font-weight: 700;">BINACIONALES 2026</a>
+        <div style="font-weight: 700; color: var(--accent); font-size: 12px;">ADMINISTRADOR CENTRAL</div>
+        <a href="login.html" class="btn-nav-blue">CERRAR SESIÓN</a>
+    </div>
+</header>
+
+<div class="container no-print">
+    <h1>Panel de Administración General</h1>
+
+    <div class="admin-stats">
+        <div class="stat-card" style="border-color: var(--primary);"><h4>Atletas</h4><span>1,504</span></div>
+        <div class="stat-card" style="border-color: var(--purple);">
+            <h4>Oficiales de Apoyo</h4>
+            <span>120</span>
+            <div style="font-size: 9px; color: #888;">15 por Región</div>
+        </div>
+        <div class="stat-card" style="border-color: var(--success);"><h4>Validados</h4><span>1,410</span></div>
+        <div class="stat-card" style="border-color: var(--warning);"><h4>Staff / Voluntarios</h4><span>205</span></div>
+    </div>
+
+    <input type="text" class="search-bar" placeholder="Buscar delegación (Mendoza, Maule, Córdoba...)" onkeyup="buscarRegion()">
+
+    <div class="section-title">🇦🇷 PROVINCIAS ARGENTINA</div>
+    <div class="control-grid">
+        <div class="region-card" data-name="mendoza">
+            <h3>Mendoza</h3>
+            <div class="progress-bar"><div class="progress-fill" style="width: 90%; background: var(--success);"></div></div>
+            <p style="font-size: 11px; color: #666;">Incluye: 24 Atletas | 2 Técnicos | 15 Oficiales</p>
+            <button class="btn-nav-blue" style="width:100%; margin-top:10px; font-size:11px;" onclick="scrollToAuditoria()">AUDITAR CARGA</button>
+        </div>
+        <div class="region-card" data-name="san juan">
+            <h3>San Juan</h3>
+            <div class="progress-bar"><div class="progress-fill" style="width: 70%; background: var(--success);"></div></div>
+            <p style="font-size: 11px; color: #666;">70% cargado</p>
+            <button class="btn-nav-blue" style="width:100%; margin-top:10px; font-size:11px;">AUDITAR</button>
+        </div>
+        <div class="region-card" data-name="san luis">
+            <h3>San Luis</h3>
+            <div class="progress-bar"><div class="progress-fill" style="width: 50%; background: var(--warning);"></div></div>
+            <p style="font-size: 11px; color: #666;">50% cargado</p>
+            <button class="btn-nav-blue" style="width:100%; margin-top:10px; font-size:11px;">AUDITAR</button>
+        </div>
+        <div class="region-card" data-name="cordoba">
+            <h3>Córdoba</h3>
+            <div class="progress-bar"><div class="progress-fill" style="width: 30%; background: var(--accent);"></div></div>
+            <p style="font-size: 11px; color: #666;">30% cargado</p>
+            <button class="btn-nav-blue" style="width:100%; margin-top:10px; font-size:11px;">AUDITAR</button>
+        </div>
+    </div>
+
+    <div class="section-title">🇨🇱 REGIONES CHILE</div>
+    <div class="control-grid">
+        <div class="region-card" data-name="metropolitana">
+            <h3>Metropolitana</h3>
+            <div class="progress-bar"><div class="progress-fill" style="width: 45%; background: var(--warning);"></div></div>
+            <p style="font-size: 11px; color: #666;">45% cargado</p>
+            <button class="btn-nav-blue" style="width:100%; margin-top:10px; font-size:11px;">AUDITAR</button>
+        </div>
+        <div class="region-card" data-name="valparaiso">
+            <h3>Valparaíso</h3>
+            <div class="progress-bar"><div class="progress-fill" style="width: 65%; background: var(--success);"></div></div>
+            <p style="font-size: 11px; color: #666;">65% cargado</p>
+            <button class="btn-nav-blue" style="width:100%; margin-top:10px; font-size:11px;">AUDITAR</button>
+        </div>
+        <div class="region-card" data-name="maule">
+            <h3>Maule</h3>
+            <div class="progress-bar"><div class="progress-fill" style="width: 20%; background: var(--accent);"></div></div>
+            <p style="font-size: 11px; color: #666;">20% cargado</p>
+            <button class="btn-nav-blue" style="width:100%; margin-top:10px; font-size:11px;">AUDITAR</button>
+        </div>
+        <div class="region-card" data-name="ohiggins">
+            <h3>O'Higgins</h3>
+            <div class="progress-bar"><div class="progress-fill" style="width: 55%; background: var(--warning);"></div></div>
+            <p style="font-size: 11px; color: #666;">55% cargado</p>
+            <button class="btn-nav-blue" style="width:100%; margin-top:10px; font-size:11px;">AUDITAR</button>
+        </div>
+    </div>
+
+    <div class="table-container" id="auditoria">
+        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3>Auditoría de Delegación: Mendoza</h3>
+            <button class="btn-nav-blue" style="background:var(--success)">DESCARGAR LISTA COMPLETA PDF</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Persona / DNI</th>
+                    <th>Categoría</th>
+                    <th>Función / Deporte</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <!-- CORRECCIÓN: tbody limpio, sin <script> adentro -->
+            <tbody id="tabla-body">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="printArea">
+    <div class="credencial-card">
+        <div class="cred-header">
+            <div style="font-size: 10px;">JUEGOS BINACIONALES 2026</div>
+            <div id="p_region"></div>
+        </div>
+        <!-- CORRECCIÓN: placehold.co reemplaza al discontinuado via.placeholder.com -->
+        <div class="cred-photo"><img src="https://placehold.co/120x120/004a99/ffffff?text=FOTO" style="width:100%;"></div>
+        <div class="cred-body">
+            <p id="p_rol" style="font-weight:700; font-size:12px; margin:0;"></p>
+            <h2 id="p_nombre" style="margin:5px 0;"></h2>
+            <p id="p_deporte" style="font-weight:700;"></p>
+        </div>
+        <div class="cred-footer">
+            <div style="text-align:left; font-size:9px;">VALIDACIÓN OFICIAL<br><strong>ORGANIZACIÓN</strong></div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=45x45&data=BIN2026" width="45">
+        </div>
+    </div>
+</div>
+
+<!-- CORRECCIÓN: todo el JS de generación de filas movido aquí, fuera del tbody -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tb = document.getElementById('tabla-body');
+
+        // 3 Oficiales Especiales
+        for (let e = 1; e <= 3; e++) {
+            tb.insertAdjacentHTML('beforeend', `<tr style="background:#fdf8ff;">
+                <td><strong>OFICIAL ESPECIAL ${e}</strong><br><small>14.XXX.XXX</small></td>
+                <td><span style="color:var(--purple); font-weight:700;">OF. APOYO</span></td>
+                <td>Oficial Especial</td>
+                <td><span class="status-badge bg-ok">OK</span></td>
+                <td><button class="btn-nav-blue" style="font-size:10px; background:var(--purple);" 
+                    onclick="generar('OFICIAL ESPECIAL ${e}', 'OFICIAL APOYO (E)', 'LOGÍSTICA', 'MENDOZA - ARG')">IMPRIMIR</button></td>
+            </tr>`);
+        }
+
+        // 12 Oficiales Generales
+        for (let g = 1; g <= 12; g++) {
+            tb.insertAdjacentHTML('beforeend', `<tr>
+                <td><strong>OFICIAL GENERAL ${g}</strong><br><small>25.XXX.XXX</small></td>
+                <td><span style="color:var(--purple); font-weight:700;">OF. APOYO</span></td>
+                <td>Oficial General</td>
+                <td><span class="status-badge bg-ok">OK</span></td>
+                <td><button class="btn-nav-blue" style="font-size:10px; background:var(--purple);"
+                    onclick="generar('OFICIAL GENERAL ${g}', 'OFICIAL APOYO', 'SOPORTE', 'MENDOZA - ARG')">IMPRIMIR</button></td>
+            </tr>`);
+        }
+
+        // 2 Técnicos
+        for (let t = 1; t <= 2; t++) {
+            tb.insertAdjacentHTML('beforeend', `<tr>
+                <td><strong>TÉCNICO ${t}</strong><br><small>18.XXX.XXX</small></td>
+                <td><span style="color:var(--success); font-weight:700;">TÉCNICO</span></td>
+                <td>Entrenador</td>
+                <td><span class="status-badge bg-ok">OK</span></td>
+                <td><button class="btn-nav-blue" style="font-size:10px; background:var(--success);"
+                    onclick="generar('TÉCNICO ${t}', 'ENTRENADOR', 'DEPORTE', 'MENDOZA - ARG')">IMPRIMIR</button></td>
+            </tr>`);
+        }
+
+        // 24 Atletas
+        for (let a = 1; a <= 24; a++) {
+            const nom = (a === 1) ? "GABARRÓ, Gustavo" : "DEPORTISTA " + a;
+            tb.insertAdjacentHTML('beforeend', `<tr>
+                <td><strong>${nom}</strong><br><small>40.XXX.XXX</small></td>
+                <td><span style="color:var(--primary); font-weight:700;">ATLETA</span></td>
+                <td>Disciplina ${a}</td>
+                <td><span class="status-badge bg-ok">OK</span></td>
+                <td><button class="btn-nav-blue" style="font-size:10px;"
+                    onclick="generar('${nom}', 'ATLETA', 'DEPORTE', 'MENDOZA - ARG')">IMPRIMIR</button></td>
+            </tr>`);
+        }
+    });
+
+    function buscarRegion() {
+        const input = document.querySelector('.search-bar').value.toLowerCase();
+        const cards = document.querySelectorAll('.region-card');
+        cards.forEach(card => {
+            const name = card.getAttribute('data-name');
+            card.style.display = name.includes(input) ? "block" : "none";
+        });
+    }
+
+    function generar(nombre, rol, deporte, region) {
+        document.getElementById('p_nombre').innerText = nombre;
+        document.getElementById('p_rol').innerText = rol;
+        document.getElementById('p_deporte').innerText = deporte;
+        document.getElementById('p_region').innerText = region;
+        
+        const rolEl = document.getElementById('p_rol');
+        if (rol.includes('OFICIAL')) {
+            rolEl.style.color = '#6f42c1';
+        } else if (rol.includes('ENTRENADOR')) {
+            rolEl.style.color = '#28a745';
+        } else {
+            rolEl.style.color = '#004a99';
+        }
+        
+        window.print();
+    }
+
+    function scrollToAuditoria() {
+        document.getElementById('auditoria').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

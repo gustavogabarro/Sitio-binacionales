@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acreditaciones | Mendoza 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004a99;
+            --success: #28a745;
+            --danger: #e63946;
+            --bg: #f8f9fa;
+            --white: #ffffff;
+            --max-width: 1250px;
+        }
+
+        html { overflow-y: scroll; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(--bg); color: #333; line-height: 1.5; }
+
+        header { background: var(--white); padding: 15px 0; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 1000; }
+        .header-container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
+        .logo { font-size: 18px; text-decoration: none; color: inherit; font-weight: 700; }
+        .btn-nav-blue { background: var(--primary); color: white !important; padding: 10px 20px; border-radius: 5px; font-weight: 700; border: none; text-decoration: none; cursor: pointer; font-size: 13px; }
+
+        .container { max-width: var(--max-width); margin: 30px auto; padding: 0 20px; box-sizing: border-box; }
+
+        .card-panel { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-top: 6px solid var(--primary); margin-bottom: 40px; }
+        .region-badge { background: #eef6ff; color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; display: inline-block; margin-bottom: 15px; }
+
+        .input-group { display: flex; gap: 10px; margin: 15px 0; }
+        input, select, textarea { padding: 10px 15px; border: 1px solid #ddd; border-radius: 6px; width: 100%; font-family: inherit; font-size: 14px; box-sizing: border-box; }
+        textarea { height: 60px; resize: none; }
+        
+        .form-lock { opacity: 0.3; pointer-events: none; transition: 0.3s; }
+
+        .list-container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .table-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 20px; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { text-align: left; padding: 12px 10px; background: #f4f7f9; color: #555; font-weight: 700; text-transform: uppercase; font-size: 11px; }
+        td { padding: 12px 10px; border-bottom: 1px solid #eee; }
+        tr:hover { background-color: #fcfdfe; }
+
+        .btn-file { background: #eee; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; transition: 0.2s; }
+        .btn-file:hover { background: #ddd; }
+        .btn-delete { color: var(--danger); background: none; border: none; cursor: pointer; font-size: 16px; font-weight: bold; }
+        
+        .tag-rol { padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; color: white; }
+        .tag-atleta { background: var(--primary); }
+        .tag-tecnico { background: #6c757d; }
+
+        @media (max-width: 1000px) { .hide-mobile { display: none; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a href="index.html" class="logo">BINACIONALES 2026</a>
+        <a href="login.html" class="btn-nav-blue">SALIR PANEL</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="card-panel">
+        <div class="region-badge">🇦🇷 MENDOZA - CARGA DE LISTA DE BUENA FE</div>
+        <h2 style="margin: 0 0 20px 0; font-size: 20px;">Registro Validado</h2>
+
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+            <label style="font-weight: 700; font-size: 12px;">VALIDACIÓN RENAPER</label>
+            <div class="input-group">
+                <input type="text" id="dni_input" placeholder="Ingrese DNI del Atleta o Técnico">
+                <button class="btn-nav-blue" onclick="validarDNI()" id="btn_validar" style="min-width: 120px;">VALIDAR</button>
+            </div>
+        </div>
+
+        <div id="campos_atleta" class="form-lock" style="margin-top: 25px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                <div>
+                    <label style="font-size: 11px; font-weight: 700;">NOMBRE COMPLETO</label>
+                    <input type="text" id="res_full" readonly style="background: #f1f1f1;">
+                </div>
+                <div>
+                    <label style="font-size: 11px; font-weight: 700;">FUNCIÓN</label>
+                    <select id="select_rol">
+                        <option value="atleta">Atleta</option>
+                        <option value="tecnico">Entrenador / Técnico</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size: 11px; font-weight: 700;">RAMA</label>
+                    <select id="select_rama">
+                        <option value="masculino">Masculino</option>
+                        <option value="femenino">Femenino</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 15px; margin-bottom: 20px;">
+                <div>
+                    <label style="font-size: 11px; font-weight: 700;">DISCIPLINA</label>
+                    <select id="select_deporte">
+                        <option>Atletismo</option><option>Básquetbol</option><option>Balonmano</option>
+                        <option>Ciclismo</option><option>Fútbol</option><option>Natación</option>
+                        <option>Taekwondo</option><option>Tenis</option><option>Voleibol</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size: 11px; font-weight: 700;">PRUEBA(S) ESPECÍFICA(S)</label>
+                    <input type="text" placeholder="Ej: 100m llanos, Salto en largo, Single Caballeros...">
+                </div>
+            </div>
+
+            <button class="btn-nav-blue" style="width: 100%; padding: 15px; background: var(--success);" onclick="agregarALista()">AGREGAR A PRE-LISTA</button>
+        </div>
+    </div>
+
+    <div class="list-container">
+        <div class="table-header">
+            <h3 style="margin:0;">Listado de Buena Fe - Pre-selección</h3>
+            <!-- CORRECCIÓN: el contador se actualiza dinámicamente -->
+            <span style="font-size: 12px; color: #666;">Total: <strong id="contador-total">26</strong> 
+                (<strong id="contador-atletas">24</strong> Atletas / <strong id="contador-tecnicos">2</strong> Técnicos)
+            </span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre y Apellido</th>
+                    <th>Rol</th>
+                    <th class="hide-mobile">Deporte / Pruebas</th>
+                    <th style="text-align: center;">Docs</th>
+                    <th style="text-align: center;">Eliminar</th>
+                </tr>
+            </thead>
+            <!-- CORRECCIÓN: tbody limpio, sin <script> adentro -->
+            <tbody id="lista-atletas">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // CORRECCIÓN: todo el código JS fuera del tbody, en DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function() {
+        const lista = document.getElementById('lista-atletas');
+
+        // Técnicos iniciales
+        const tecnicos = [
+            { nombre: 'GARCÍA, Roberto', dni: '18.234.XXX', deporte: 'Ciclismo', prueba: 'Pista y Ruta' },
+            { nombre: 'MARTÍNEZ, Elena', dni: '22.456.XXX', deporte: 'Natación', prueba: 'Coordinación General' }
+        ];
+        tecnicos.forEach(t => {
+            lista.insertAdjacentHTML('beforeend', crearFila(t.nombre, t.dni, 'tecnico', t.deporte, t.prueba, true));
+        });
+
+        // Atletas iniciales
+        const atletas = [
+            { nombre: 'GABARRÓ, Gustavo', dni: '40.123.XXX', deporte: 'Ciclismo', prueba: 'MTB / Contrarreloj' }
+        ];
+        const nombresExtra = ["LOPEZ, Julian", "SOSA, Maria", "RUIZ, Fernando", "DIAZ, Sofia", "PEREZ, Lucas", "MOLINERO, Clara"];
+        for (let i = 0; i < 23; i++) {
+            atletas.push({
+                nombre: nombresExtra[i % nombresExtra.length],
+                dni: `4${i}.XXX.XXX`,
+                deporte: 'Deporte Varios',
+                prueba: `Prueba ${i + 1}`
+            });
+        }
+        atletas.forEach(a => {
+            lista.insertAdjacentHTML('beforeend', crearFila(a.nombre, a.dni, 'atleta', a.deporte, a.prueba, false));
+        });
+
+        actualizarContador();
+    });
+
+    function crearFila(nombre, dni, rol, deporte, prueba, esTecnico) {
+        const borderColor = esTecnico ? '#6c757d' : 'transparent';
+        const tagClass = esTecnico ? 'tag-tecnico' : 'tag-atleta';
+        const tagLabel = esTecnico ? 'TÉCNICO' : 'ATLETA';
+        return `
+        <tr style="border-left: 4px solid ${borderColor};" data-rol="${rol}">
+            <td><strong>${nombre}</strong><br><small>DNI ${dni}</small></td>
+            <td><span class="tag-rol ${tagClass}">${tagLabel}</span></td>
+            <td class="hide-mobile">${deporte}<br><small>${prueba}</small></td>
+            <td style="text-align: center;">
+                <button class="btn-file" title="Subir Foto">🖼️</button>
+                <button class="btn-file" title="Subir PDF">📄</button>
+            </td>
+            <td style="text-align: center;"><button class="btn-delete" onclick="eliminarFila(this)">×</button></td>
+        </tr>`;
+    }
+
+    function validarDNI() {
+        const btn = document.getElementById('btn_validar');
+        btn.innerText = "ESPERE...";
+        setTimeout(() => {
+            btn.innerText = "✓ OK";
+            btn.style.background = "var(--success)";
+            document.getElementById('res_full').value = "APELLIDO Y NOMBRE RENAPER";
+            document.getElementById('campos_atleta').classList.remove('form-lock');
+        }, 800);
+    }
+
+    function agregarALista() {
+        const nombre = document.getElementById('res_full').value;
+        const rol = document.getElementById('select_rol').value;
+        const deporte = document.getElementById('select_deporte').value;
+        const prueba = "—";
+        const esTecnico = rol === 'tecnico';
+        const lista = document.getElementById('lista-atletas');
+        lista.insertAdjacentHTML('beforeend', crearFila(nombre, 'VALIDADO', esTecnico ? 'tecnico' : 'atleta', deporte, prueba, esTecnico));
+        actualizarContador();
+
+        // Resetear formulario
+        document.getElementById('campos_atleta').classList.add('form-lock');
+        document.getElementById('res_full').value = '';
+        document.getElementById('dni_input').value = '';
+        const btn = document.getElementById('btn_validar');
+        btn.innerText = "VALIDAR";
+        btn.style.background = '';
+    }
+
+    function eliminarFila(btn) {
+        if (confirm("¿Está seguro de eliminar a esta persona del listado de buena fe?")) {
+            const row = btn.closest('tr');
+            row.remove();
+            // CORRECCIÓN: el contador se actualiza al eliminar
+            actualizarContador();
+        }
+    }
+
+    function actualizarContador() {
+        const filas = document.querySelectorAll('#lista-atletas tr');
+        let atletas = 0, tecnicos = 0;
+        filas.forEach(fila => {
+            if (fila.getAttribute('data-rol') === 'tecnico') tecnicos++;
+            else atletas++;
+        });
+        document.getElementById('contador-total').innerText = filas.length;
+        document.getElementById('contador-atletas').innerText = atletas;
+        document.getElementById('contador-tecnicos').innerText = tecnicos;
+    }
+</script>
+
+</body>
+</html>

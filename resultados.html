@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados | Juegos Binacionales 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004a99;
+            --accent: #e63946;
+            --bg: #f8f9fa;
+            --text: #333;
+            --white: #ffffff;
+            --border: #eeeeee;
+            --max-width: 1200px;
+        }
+
+        html { overflow-y: scroll; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+        header {
+            background: var(--white);
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .header-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .logo { font-size: 18px; text-decoration: none; color: inherit; font-weight: 700; }
+        .nav-links a { text-decoration: none; color: var(--text); margin-left: 25px; font-weight: 500; font-size: 13px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+        
+        .btn-nav-blue { 
+            background: var(--primary); 
+            color: white !important; 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+            font-weight: 700 !important; 
+            border: none; 
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 40px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        h1 { font-size: 28px; margin-bottom: 10px; color: var(--primary); }
+        .subtitle { color: #777; margin-bottom: 40px; }
+
+        /* Grilla de Disciplinas */
+        .discipline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .discipline-card {
+            background: white; border: 2px solid var(--border); padding: 20px 5px;
+            text-align: center; border-radius: 12px; cursor: pointer; transition: 0.3s;
+        }
+        /* CORRECCIÓN: estado activo visible para el filtro seleccionado */
+        .discipline-card:hover,
+        .discipline-card.active { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .discipline-card.active { background: #eef4ff; }
+        .discipline-card span { display: block; font-size: 28px; margin-bottom: 8px; }
+        .discipline-card strong { font-size: 10px; text-transform: uppercase; display: block; color: #666; }
+        .discipline-card.active strong { color: var(--primary); }
+
+        /* Buscador */
+        .filter-section {
+            background: white; padding: 20px; border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03); margin-bottom: 30px;
+            display: flex; gap: 15px; flex-wrap: wrap; align-items: center;
+        }
+        .search-input { 
+            flex: 2; padding: 12px 20px; border: 1px solid #ddd; 
+            border-radius: 30px; font-family: inherit; font-size: 14px; outline: none;
+        }
+        .search-input:focus { border-color: var(--primary); }
+
+        /* CORRECCIÓN: botón "Mostrar todos" para limpiar el filtro de disciplina */
+        .btn-clear {
+            background: #eee; border: 1px solid #ddd; border-radius: 20px;
+            padding: 10px 18px; font-family: inherit; font-size: 12px;
+            cursor: pointer; font-weight: 700; transition: 0.2s; white-space: nowrap;
+        }
+        .btn-clear:hover { background: #ddd; }
+
+        /* Lista de Resultados */
+        .results-box { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        
+        /* Mensaje sin resultados */
+        .no-results {
+            padding: 40px; text-align: center; color: #aaa; font-size: 14px; display: none;
+        }
+
+        .result-row {
+            display: grid; grid-template-columns: 1.5fr 3fr 1fr;
+            padding: 20px; border-bottom: 1px solid var(--border); align-items: center;
+        }
+        .result-row:last-child { border-bottom: none; }
+        
+        .tag { font-size: 10px; font-weight: bold; padding: 3px 10px; border-radius: 5px; background: #f0f0f0; display: inline-block; margin-bottom: 5px; }
+        .tag-m { background: #e3f2fd; color: #1565c0; } 
+        .tag-f { background: #fce4ec; color: #c2185b; } 
+        
+        .event-info { font-size: 12px; color: #888; }
+        .athlete { font-weight: 700; font-size: 16px; margin-bottom: 2px; }
+        .origin { font-size: 13px; color: #666; }
+        .score { font-size: 22px; font-weight: 700; color: var(--primary); text-align: right; }
+
+        @media (max-width: 768px) {
+            .result-row { grid-template-columns: 1fr; gap: 10px; text-align: center; }
+            .score { text-align: center; border-top: 1px dashed #eee; padding-top: 10px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a href="index.html" class="logo"><strong>BINACIONALES</strong> 2026</a>
+        <nav class="nav-links">
+            <a href="index.html">INICIO</a>
+            <a href="resultados.html" style="color: var(--primary); font-weight: 700;">RESULTADOS</a>
+            <a href="#">NOTICIAS</a>
+            <!-- CORRECCIÓN: consistente con el resto del sitio -->
+            <a href="login.html" class="btn-nav-blue">ACREDITACIONES</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <h1>Resultados Oficiales</h1>
+    <p class="subtitle">Seguí el desempeño de los 1.500 deportistas de Argentina y Chile.</p>
+
+    <!-- CORRECCIÓN: cada card llama a filterByDiscipline() con su categoría -->
+    <div class="discipline-grid">
+        <div class="discipline-card" onclick="filterByDiscipline('atletismo', this)"><span>🏃</span><strong>Atletismo</strong></div>
+        <div class="discipline-card" onclick="filterByDiscipline('basquetbol', this)"><span>🏀</span><strong>Baloncesto</strong></div>
+        <div class="discipline-card" onclick="filterByDiscipline('balonmano', this)"><span>🤾</span><strong>Balonmano</strong></div>
+        <div class="discipline-card" onclick="filterByDiscipline('ciclismo', this)"><span>🚴</span><strong>Ciclismo</strong></div>
+        <div class="discipline-card" onclick="filterByDiscipline('natacion', this)"><span>🏊</span><strong>Natación</strong></div>
+        <div class="discipline-card" onclick="filterByDiscipline('taekwondo', this)"><span>🥋</span><strong>Taekwondo</strong></div>
+        <div class="discipline-card" onclick="filterByDiscipline('tenis', this)"><span>🎾</span><strong>Tenis</strong></div>
+        <div class="discipline-card" onclick="filterByDiscipline('tenis_mesa', this)"><span>🏓</span><strong>T. de Mesa</strong></div>
+        <div class="discipline-card" onclick="filterByDiscipline('voleibol', this)"><span>🏐</span><strong>Voleibol</strong></div>
+    </div>
+
+    <div class="filter-section">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar por deportista, provincia o región..." oninput="filterResults()">
+        <button class="btn-clear" onclick="clearFilters()">✕ Mostrar todos</button>
+    </div>
+
+    <div class="results-box" id="resultsContainer">
+        
+        <div class="result-row" data-discipline="basquetbol" data-search="baloncesto basquetbol mendoza valparaiso argentina chile">
+            <div>
+                <span class="tag">BALONCESTO</span><br>
+                <span class="tag tag-m">MASCULINO</span>
+                <div class="event-info">Fase de Grupos</div>
+            </div>
+            <div>
+                <div class="athlete">Mendoza (ARG) vs Valparaíso (CHI)</div>
+                <div class="origin">Estadio Polimeni</div>
+            </div>
+            <div class="score">82 - 75</div>
+        </div>
+
+        <div class="result-row" data-discipline="atletismo" data-search="atletismo lucas lopez san luis argentina oro">
+            <div>
+                <span class="tag">ATLETISMO</span><br>
+                <span class="tag tag-m">MASCULINO</span>
+                <div class="event-info">Salto en Alto</div>
+            </div>
+            <div>
+                <div class="athlete">López, Lucas</div>
+                <div class="origin">Provincia de San Luis (ARG)</div>
+            </div>
+            <div class="score">🥇 2.15m</div>
+        </div>
+
+        <div class="result-row" data-discipline="natacion" data-search="natacion sofia martinez metropolitana chile">
+            <div>
+                <span class="tag">NATACIÓN</span><br>
+                <span class="tag tag-f">FEMENINO</span>
+                <div class="event-info">100m Estilo Libre</div>
+            </div>
+            <div>
+                <div class="athlete">Martínez, Sofía</div>
+                <div class="origin">Región Metropolitana (CHI)</div>
+            </div>
+            <div class="score">00:58.12</div>
+        </div>
+
+        <div class="result-row" data-discipline="voleibol" data-search="voleibol maule cordoba chile argentina">
+            <div>
+                <span class="tag">VOLEIBOL</span><br>
+                <span class="tag tag-f">FEMENINO</span>
+                <div class="event-info">Semifinal</div>
+            </div>
+            <div>
+                <div class="athlete">Región del Maule (CHI) vs Córdoba (ARG)</div>
+                <div class="origin">Club Mendoza de Regatas</div>
+            </div>
+            <div class="score">3 - 1</div>
+        </div>
+
+        <div id="no-results" class="no-results">
+            No se encontraron resultados para esta búsqueda.
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let currentDiscipline = null;
+
+    // CORRECCIÓN: las tarjetas de disciplina ahora filtran los resultados
+    function filterByDiscipline(disciplina, card) {
+        // Si ya está activa, la desactiva (toggle)
+        if (currentDiscipline === disciplina) {
+            clearFilters();
+            return;
+        }
+        currentDiscipline = disciplina;
+
+        // Marcar card activa
+        document.querySelectorAll('.discipline-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+
+        filterResults();
+    }
+
+    function clearFilters() {
+        currentDiscipline = null;
+        document.querySelectorAll('.discipline-card').forEach(c => c.classList.remove('active'));
+        document.getElementById('searchInput').value = '';
+        filterResults();
+    }
+
+    function filterResults() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const rows = document.querySelectorAll('.result-row[data-search]');
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+            const searchText = row.getAttribute('data-search');
+            const disciplina = row.getAttribute('data-discipline');
+
+            const matchesText = searchText.includes(input);
+            const matchesDiscipline = !currentDiscipline || disciplina === currentDiscipline;
+
+            if (matchesText && matchesDiscipline) {
+                row.style.display = "grid";
+                visibleCount++;
+            } else {
+                row.style.display = "none";
+            }
+        });
+
+        // Mostrar mensaje si no hay resultados
+        document.getElementById('no-results').style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+</script>
+
+</body>
+</html>

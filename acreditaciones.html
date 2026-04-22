@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acreditaciones | Binacionales 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004a99;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --bg: #f8f9fa;
+            --white: #ffffff;
+            --max-width: 1200px;
+        }
+
+        html { overflow-y: scroll; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(--bg); color: #333; scroll-behavior: smooth; }
+
+        header { 
+            background: var(--white); 
+            padding: 15px 0; 
+            border-bottom: 1px solid #ddd; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+        .header-container { 
+            max-width: var(--max-width); 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-sizing: border-box;
+        }
+        .logo { font-size: 18px; text-decoration: none; color: inherit; font-weight: 700; }
+        .nav-links a { text-decoration: none; color: #333; margin-left: 25px; font-weight: 500; font-size: 13px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+        .btn-nav-blue { background: var(--primary); color: white !important; padding: 10px 20px; border-radius: 5px; font-weight: 700 !important; border: none; cursor: pointer; text-decoration: none; }
+
+        .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; box-sizing: border-box; }
+
+        .action-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px; 
+            margin-bottom: 50px; 
+        }
+        .action-card { 
+            background: white; padding: 30px; border-radius: 12px; 
+            text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            cursor: pointer; transition: 0.3s; border: 1px solid transparent;
+        }
+        .action-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .action-card span { font-size: 40px; display: block; margin-bottom: 15px; }
+
+        .card-panel { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 40px; }
+        .country-selector { display: flex; gap: 15px; justify-content: center; margin-bottom: 25px; }
+        .country-opt { padding: 10px 20px; border: 2px solid #eee; border-radius: 8px; cursor: pointer; opacity: 0.5; filter: grayscale(1); transition: 0.3s; }
+        .country-opt.active { opacity: 1; filter: grayscale(0); border-color: var(--primary); background: #f0f7ff; }
+
+        .input-group { display: flex; gap: 10px; margin: 15px 0; }
+        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; width: 100%; font-family: inherit; font-size: 14px; box-sizing: border-box; }
+        .form-lock { opacity: 0.4; pointer-events: none; transition: 0.4s; }
+
+        .delegacion-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .atleta-card { background: white; border-radius: 10px; overflow: hidden; border: 1px solid #eee; text-align: center; padding-bottom: 15px; }
+        .atleta-photo { height: 100px; background: #eef6ff; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 10px; }
+        .atleta-photo img { width: 70px; height: 70px; border-radius: 50%; border: 3px solid white; object-fit: cover; }
+        .badge { position: absolute; top: 8px; right: 8px; font-size: 9px; padding: 3px 8px; border-radius: 10px; color: white; font-weight: bold; }
+
+        @media (max-width: 768px) { .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a href="index.html" class="logo">BINACIONALES 2026</a>
+        <nav class="nav-links">
+            <a href="index.html">INICIO</a>
+            <a href="resultados.html">RESULTADOS</a>
+            <a href="#">NOTICIAS</a>
+            <!-- CORRECCIÓN: el botón activo es la página actual, sin link circular -->
+            <a href="acreditaciones.html" class="btn-nav-blue" style="background: #003377;">ACREDITACIONES</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <h1 style="color: var(--primary);">Gestión de Delegación</h1>
+    <p style="color: #666; margin-bottom: 30px;">Panel oficial de acreditaciones. Validación de identidad obligatoria para todo el personal.</p>
+
+    <div class="action-grid">
+        <div class="action-card" onclick="mostrarSeccion('seccion-nueva-carga')">
+            <span>🏃‍♂️</span>
+            <h3>Nuevo Atleta</h3>
+            <p>Registro individual validado</p>
+        </div>
+        <div class="action-card" onclick="mostrarSeccion('seccion-voluntarios')">
+            <span>🧡</span>
+            <h3>Voluntarios</h3>
+            <p>Inscripción Staff de Apoyo</p>
+        </div>
+        <div class="action-card" onclick="document.getElementById('seccion-directorio').scrollIntoView({behavior:'smooth'});">
+            <span>👥</span>
+            <h3>Ver Delegación</h3>
+            <p>Directorio de acreditados</p>
+        </div>
+    </div>
+
+    <div id="seccion-nueva-carga" class="card-panel" style="display: none; border-top: 5px solid var(--primary);">
+        <h2 style="text-align: center;">Registro de Atleta</h2>
+        <div class="country-selector">
+            <div id="arg-opt" class="country-opt active" onclick="setPais('arg')">🇦🇷 Argentina</div>
+            <div id="chi-opt" class="country-opt" onclick="setPais('chi')">🇨🇱 Chile</div>
+        </div>
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+            <div class="input-group">
+                <input type="text" id="doc_in" placeholder="Documento de Identidad">
+                <button class="btn-nav-blue" onclick="simularValidacion('atleta')" id="btn-validar">VALIDAR</button>
+            </div>
+            <small id="feedback" style="color: #888;">El sistema consultará con los servicios de identidad correspondientes.</small>
+        </div>
+        
+        <div id="form-datos" class="form-lock" style="margin-top:20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                <input type="text" id="res_ape" placeholder="Apellido" readonly style="background:#eee;">
+                <input type="text" id="res_nom" placeholder="Nombre" readonly style="background:#eee;">
+            </div>
+            <select style="margin-bottom: 15px;">
+                <option>Seleccione deporte...</option>
+                <option value="atletismo">Atletismo</option>
+                <option value="basquetbol">Básquetbol</option>
+                <option value="balonmano">Balonmano</option>
+                <option value="ciclismo">Ciclismo (Ruta y Pista)</option>
+                <option value="futbol">Fútbol</option>
+                <option value="natacion">Natación</option>
+                <option value="taekwondo">Taekwondo</option>
+                <option value="tenis">Tenis</option>
+                <option value="tenis_mesa">Tenis de Mesa</option>
+                <option value="voleibol">Voleibol</option>
+            </select>
+            <button class="btn-nav-blue" style="width: 100%;">FINALIZAR REGISTRO</button>
+        </div>
+    </div>
+
+    <div id="seccion-directorio">
+        <h2 style="border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 30px;">Delegación Acreditada</h2>
+        <div class="delegacion-grid">
+            <div class="atleta-card">
+                <div class="atleta-photo">
+                    <!-- CORRECCIÓN: placehold.co reemplaza al discontinuado via.placeholder.com -->
+                    <img src="https://placehold.co/70x70/004a99/ffffff?text=GG" alt="Foto">
+                    <span class="badge" style="background: var(--success);">✓ VALIDADO</span>
+                </div>
+                <h4>GABARRÓ, Gustavo</h4>
+                <p style="font-size: 11px; color: var(--primary); font-weight: bold;">CICLISMO MTB</p>
+                <p style="font-size: 10px; color: #999;">Mendoza (ARG)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function mostrarSeccion(id) {
+        const seccion = document.getElementById(id);
+        if (seccion) {
+            seccion.style.display = 'block';
+            seccion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    function setPais(p) {
+        document.getElementById('arg-opt').classList.toggle('active', p === 'arg');
+        document.getElementById('chi-opt').classList.toggle('active', p === 'chi');
+        document.getElementById('doc_in').placeholder = p === 'arg' ? "DNI del Atleta" : "RUT del Atleta";
+    }
+
+    function simularValidacion(tipo) {
+        const btn = document.getElementById('btn-validar');
+        const fb = document.getElementById('feedback');
+        btn.innerText = "ESPERE...";
+        
+        setTimeout(() => {
+            btn.innerText = "OK";
+            btn.style.background = "var(--success)";
+            fb.innerText = "✅ Identidad verificada con éxito.";
+            fb.style.color = "green";
+            document.getElementById('res_ape').value = "GABARRÓ";
+            document.getElementById('res_nom').value = "GUSTAVO";
+            document.getElementById('form-datos').classList.remove('form-lock');
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>

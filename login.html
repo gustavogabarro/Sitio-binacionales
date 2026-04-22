@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Binacionales 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004a99;
+            --accent: #e63946;
+            --bg: #f8f9fa;
+        }
+
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo-placeholder {
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            background-color: #fff;
+        }
+
+        select:focus, input:focus { border-color: var(--primary); }
+
+        .btn-login {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .btn-login:hover { background: #003366; }
+
+        .notice {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <div class="logo-placeholder">Acreditaciones 2026</div>
+    
+    <div class="form-group">
+        <label>SELECCIONE SU REGIÓN / PROVINCIA</label>
+        <select id="usuario">
+            <option value="" disabled selected>Elegir delegación...</option>
+
+            <!-- CORRECCIÓN: --accent ahora está definida en :root -->
+            <option value="admin" style="font-weight: bold; color: var(--accent);">⚙️ Administrador Central</option>
+            
+            <optgroup label="🇦🇷 ARGENTINA">
+                <option value="mendoza">Mendoza</option>
+                <!-- Las siguientes se habilitan cuando se cree su .html -->
+                <option value="san_juan" disabled>San Juan (próximamente)</option>
+                <option value="san_luis" disabled>San Luis (próximamente)</option>
+                <option value="cordoba" disabled>Córdoba (próximamente)</option>
+            </optgroup>
+
+            <optgroup label="🇨🇱 CHILE">
+                <option value="metropolitana" disabled>Metropolitana (próximamente)</option>
+                <option value="valparaiso" disabled>Valparaíso (próximamente)</option>
+                <option value="maule" disabled>Maule (próximamente)</option>
+                <option value="ohiggins" disabled>O'Higgins (próximamente)</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>CONTRASEÑA</label>
+        <input type="password" id="password" placeholder="••••••••">
+    </div>
+
+    <button type="button" class="btn-login" onclick="redireccionar()">INGRESAR AL SISTEMA</button>
+    <p class="notice">Las delegaciones "próximamente" se habilitarán al crear su página.</p>
+</div>
+
+<script>
+    // CORRECCIÓN: mapeo explícito de valores a archivos existentes — sin 404
+    const paginas = {
+        'admin': 'admin.html',
+        'mendoza': 'mendoza.html'
+        // Agregar aquí cuando se creen las otras páginas: 'san_juan': 'san_juan.html', etc.
+    };
+
+    function redireccionar() {
+        const user = document.getElementById('usuario').value;
+        
+        if (!user) {
+            alert("Por favor, seleccione una delegación.");
+            return;
+        }
+
+        if (paginas[user]) {
+            window.location.href = paginas[user];
+        } else {
+            alert("Esta delegación aún no tiene página disponible.");
+        }
+    }
+
+    document.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') redireccionar();
+    });
+</script>
+
+</body>
+</html>
